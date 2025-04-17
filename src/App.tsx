@@ -130,12 +130,16 @@ function App() {
           error={error}
         />
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="block md:hidden order-1">
-            {nearestLocation && <NearestLocation info={nearestLocation} />}
-          </div>
-          
-          <div className="order-2 md:order-none h-[400px] md:h-[600px] rounded-lg shadow-lg overflow-hidden">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-8">
+          {/* Nearest Location - Mobile Only */}
+          {nearestLocation && (
+            <div className="md:hidden">
+              <NearestLocation info={nearestLocation} />
+            </div>
+          )}
+
+          {/* Map */}
+          <div className="h-[400px] md:h-[600px] rounded-lg shadow-lg overflow-hidden">
             <MapContainer
               center={mapCenter}
               zoom={mapZoom}
@@ -175,13 +179,14 @@ function App() {
             </MapContainer>
           </div>
 
+          {/* Desktop Layout */}
           <div className="space-y-8">
+            {/* Nearest Location - Desktop Only */}
             <div className="hidden md:block">
               {nearestLocation && <NearestLocation info={nearestLocation} />}
             </div>
-            <div className="order-3 md:order-none">
-              <LocationList locations={addresses} />
-            </div>
+            {/* Location List */}
+            <LocationList locations={addresses} />
           </div>
         </div>
       </div>
